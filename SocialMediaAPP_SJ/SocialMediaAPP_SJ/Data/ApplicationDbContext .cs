@@ -9,8 +9,8 @@ namespace SocialMediaAPP_SJ.Data
         {
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Post> Posts { get; set; }
-        public DbSet<Comment> Comments { get; set; }
+        public DbSet<User> user { get; set; }
+        public DbSet<Post> post { get; set; }
+        public DbSet<Comment> comment { get; set; }
     }
 }
