@@ -8,7 +8,7 @@ namespace SocialMediaAPP_SJ.Model
     {
         [Key]
         [Column("user_id")]
-        public int UserId {  get; set; }
+        public String UserId {  get; set; }
         [Column("password")]
         public String Password { get; set; }
         [Column("name")]
