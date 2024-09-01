@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SocialMediaAPP_SJ.Data;
 using SocialMediaAPP_SJ.Model;
 
@@ -62,6 +63,30 @@ namespace SocialMediaAPP_SJ.Controllers
             await _context.SaveChangesAsync();
 
             return Ok("Post updated successfully.");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Post>>> GetAllPosts()
+        {
+            var posts = await _context.post
+                .Where(p => !p.Removed)
+                .ToListAsync();
+            return Ok(posts);
+        }
+
+        [HttpGet("{postId}")]
+        public async Task<ActionResult<Post>> GetPostById(string postId)
+        {
+            var post = await _context.post
+                .Where(p => p.PostId == postId && !p.Removed)
+                .FirstOrDefaultAsync();
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(post);
         }
     }
 }

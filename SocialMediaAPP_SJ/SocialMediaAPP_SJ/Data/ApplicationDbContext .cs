@@ -12,5 +12,11 @@ namespace SocialMediaAPP_SJ.Data
         public DbSet<User> user { get; set; }
         public DbSet<Post> post { get; set; }
         public DbSet<Comment> comment { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Post>()
+                .HasKey(p => p.PostId);
+        }
     }
 }
