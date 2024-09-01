@@ -1,7 +1,7 @@
 # SocialMediaAPP_SJ
 ## 專案資訊
 ### 語言:C#(.net8)
-### DB:MySQL
+### DB:MySQL 8.4.0
 
 ## 已實作功能
 ### User
@@ -21,8 +21,8 @@
 刪除留言
 
 ## 資料夾結構
-### Controllers: User, Post, Comment Controller
-### Model: User, Post, Comment Entity
+### Controllers: 處理API及其邏輯
+### Model: 放置Entity
 ### Data: DB Context
 ### DB: DDL檔
 
