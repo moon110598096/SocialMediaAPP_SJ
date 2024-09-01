@@ -6,6 +6,7 @@ using SocialMediaAPP_SJ.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SocialMediaAPP_SJ.Controllers
 {
@@ -25,6 +26,19 @@ namespace SocialMediaAPP_SJ.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] User newUser)
         {
+            var userIdPattern = @"^[a-zA-Z0-9]+$";
+            var passwordPattern = @"^[a-zA-Z0-9]+$";
+
+            if (!Regex.IsMatch(newUser.UserId, userIdPattern))
+            {
+                return BadRequest(new { message = "Invalid UserId format. Only letters and numbers are allowed." });
+            }
+
+            if (!Regex.IsMatch(newUser.Password, passwordPattern))
+            {
+                return BadRequest(new { message = "Invalid Password format. Only letters and numbers are allowed." });
+            }
+
             var existingUser = await _context.user.FirstOrDefaultAsync(u => u.UserId == newUser.UserId);
 
             if (existingUser != null)
