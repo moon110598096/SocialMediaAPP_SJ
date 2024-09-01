@@ -15,8 +15,12 @@ namespace SocialMediaAPP_SJ.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Post>()
                 .HasKey(p => p.PostId);
+
+            modelBuilder.Entity<Comment>()
+                .HasKey(c => c.CommentId);
         }
     }
 }
