@@ -1,5 +1,4 @@
-﻿using Org.BouncyCastle.Asn1.Mozilla;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SocialMediaAPP_SJ.Model
