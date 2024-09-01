@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using SocialMediaAPP_SJ.Data;
 using SocialMediaAPP_SJ.Model;
+using System.Net.Sockets;
+using System.Net;
 
 namespace SocialMediaAPP_SJ.Controllers
 {
@@ -15,24 +17,30 @@ namespace SocialMediaAPP_SJ.Controllers
         {
             _context = context;
         }
+
         [HttpPost]
         public async Task<ActionResult<Comment>> AddComment([FromBody] Comment comment)
         {
             var user = await _context.user.Where(u => u.UserId == comment.UserId).FirstOrDefaultAsync();
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            var ipAddress = host.AddressList
+                .FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
 
             if (user == null)
                 return BadRequest("Invalid UserId.");
 
             comment.Name = user.Name;
             comment.CommentId = Guid.NewGuid().ToString();
-            comment.Ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            comment.Ip = ipAddress?.ToString();
             comment.Date = DateTime.UtcNow;
             comment.Removed = false;
 
             _context.comment.Add(comment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCommentById), new { commentId = comment.CommentId }, comment);
+            var locationUrl = Url.Action("GetCommentById", new { commentId = comment.CommentId });
+
+            return Created(locationUrl, comment);
         }
 
         [HttpDelete("{commentId}")]
@@ -45,7 +53,7 @@ namespace SocialMediaAPP_SJ.Controllers
                 return NotFound();
             }
 
-            comment.Removed = true; // 标记为已删除
+            comment.Removed = true;
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -56,12 +64,12 @@ namespace SocialMediaAPP_SJ.Controllers
         {
             var comment = await _context.comment.FindAsync(commentId);
 
-            if (comment == null || comment.Removed)
+            if (comment == null)
             {
                 return NotFound();
             }
 
-            return Ok(comment);
+            return comment;
         }
     }
 }
