@@ -1,7 +1,7 @@
 # SocialMediaAPP_SJ
 ## 專案資訊
-語言:C#(.net8)
-DB:MySQL
+### 語言:C#(.net8)
+### DB:MySQL
 
 ## 已實作功能
 ### User
