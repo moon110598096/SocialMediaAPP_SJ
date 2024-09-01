@@ -25,7 +25,9 @@ namespace SocialMediaAPP_SJ.Controllers
             if (post == null)
                 return BadRequest("Invalid post data.");
 
+            post.PostId = Guid.NewGuid().ToString();
             post.date = DateTime.Now;
+            post.Removed = false;
             _context.post.Add(post);
             await _context.SaveChangesAsync();
 
