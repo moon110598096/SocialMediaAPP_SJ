@@ -25,7 +25,7 @@ namespace SocialMediaAPP_SJ.Controllers
                 return BadRequest("Invalid post data.");
 
             post.PostId = Guid.NewGuid().ToString();
-            post.date = DateTime.Now;
+            post.Date = DateTime.Now;
             post.Removed = false;
             _context.post.Add(post);
             await _context.SaveChangesAsync();
@@ -59,7 +59,7 @@ namespace SocialMediaAPP_SJ.Controllers
 
             post.Title = updatedPost.Title ?? post.Title;
             post.Content = updatedPost.Content ?? post.Content;
-            post.date = DateTime.Now;
+            post.Date = DateTime.Now;
 
             await _context.SaveChangesAsync();
 

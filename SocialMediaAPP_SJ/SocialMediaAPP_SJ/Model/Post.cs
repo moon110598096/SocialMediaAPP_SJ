@@ -10,7 +10,7 @@ namespace SocialMediaAPP_SJ.Model
         [Column("content")]
         public String Content { get; set; }
         [Column("date")]
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
         [Key]
         [Column("post_id")]
         public String PostId { get; set; }
