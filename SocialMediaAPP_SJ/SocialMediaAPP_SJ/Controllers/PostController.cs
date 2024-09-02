@@ -33,7 +33,7 @@ namespace SocialMediaAPP_SJ.Controllers
             return Ok(post);
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("{id}")]
         [Authorize]
         public async Task<IActionResult> DeletePost(String id)
         {
@@ -48,7 +48,7 @@ namespace SocialMediaAPP_SJ.Controllers
             return Ok("Post deleted successfully.");
         }
 
-        [HttpPut("update/{id}")]
+        [HttpPut("{id}")]
         [Authorize]
         public async Task<IActionResult> UpdatePost(String id, [FromBody] Post updatedPost)
         {
